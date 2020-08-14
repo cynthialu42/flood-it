@@ -10,9 +10,13 @@ class Tile extends Component {
   }
   render() {
     if (this.props.crow) {
+        let spinning = false;
+        if (this.props.colorCluster && this.props.colorCluster.length === this.props.size * this.props.size) {
+            spinning = true;
+        }
       return (
         <div
-          className="tile"
+          className={`tile tile-spin--${spinning}`}
           style={{ height: this.props.height, width: this.props.width }}
         >
           <i

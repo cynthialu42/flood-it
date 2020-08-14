@@ -1,36 +1,70 @@
+body {
+  font-family: "Nanum Gothic", sans-serif;
+}
+
 .font-25 {
-    font-size: 25px;
+  font-size: 25px;
+}
+
+.fas:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.dark-mode--true,
+.sidedrawer-dark-mode--true {
+  background-color: #252525;
+  color: white;
+  transition: all 0.5s ease;
+}
+
+.dark-mode--false,
+.sidedrawer-dark-mode--false {
+  background-color: white;
+  color: #252525;
+  transition: all 0.5s ease;
+}
+.color-swatch-bar:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.color-swatch-bar--border {
+  border: 2px solid pink;
 }
 
 .sidedrawer {
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 40%;
-    background-color: white;
-    transform: translateX(100%);
-    /* transform: translateX(100%); */
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  transform: translateX(100%);
+  /* transform: translateX(100%); */
 }
 
 .sidedrawer--open {
-    animation: open .3s ease forwards;
+  animation: open 0.3s ease forwards;
 }
 
 .sidedrawer--closed {
-    animation: closed .3s ease backwards;
+  animation: closed 0.3s ease backwards;
 }
 
 .sidedrawer-overlay {
-    z-index: 50;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: rgb(133, 133, 133);
-    opacity: 50%;
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgb(133, 133, 133);
+  opacity: 50%;
+}
+
+.tile-spin--true {
+  animation: spin 0.5s linear infinite;
 }
 
 /* .sidedrawer-overlay--open {
@@ -42,37 +76,46 @@
 } */
 
 @keyframes open {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
+  0% {
+    transform: translateX(100%);
   }
-
-  @keyframes closed {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
+  100% {
+    transform: translateX(0%);
   }
+}
 
-  @keyframes fadein {
-    0% {
-      opacity: 0%;
-    }
-    100% {
-      opacity: 50%
-    }
+@keyframes closed {
+  0% {
+    transform: translateX(0%);
   }
+  100% {
+    transform: translateX(100%);
+  }
+}
 
-  @keyframes fadeout {
-    0% {
-      opacity: 50%;
+@keyframes fadein {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 50%;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 50%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
     }
-    100% {
-      opacity: 0%
+    to {
+        transform:rotate(360deg);
     }
   }

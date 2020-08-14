@@ -22,6 +22,10 @@ class Grid extends Component {
     if (this.props.currentColor !== prevProps.currentColor) {
       this.updateGrid(this.props.currentColor);
     }
+    if(this.props.colors !== prevProps.colors || this.props.size !== prevProps.size || this.props.refresh) {
+        this.setState({ colorCluster: null, colors: this.props.colors, size: this.props.size })
+        this.generateGridData(this.props.size);
+    }
   }
 
   findAllTiles = (array, gridObjectClone, color, originalArray) => {
@@ -118,7 +122,15 @@ class Grid extends Component {
       colorCluster: [...new Set(tileColorsUpdated)],
       gridColors: gridObjectClone,
       gridArray: gridArrayClone,
+    }, () => {
+        if (
+            this.state.colorCluster &&
+            this.state.colorCluster.length === this.props.size * this.props.size
+          ) {
+            this.props.showWin();
+          }
     });
+    
   }
 
   generateGridData(size) {
@@ -155,14 +167,9 @@ class Grid extends Component {
   render() {
     let gameBoard;
     let winText = null;
-    let tileHeight = Math.floor(450 / this.props.size);
-    let tileWidth = Math.floor(450 / this.props.size);
-    if (
-      this.state.colorCluster &&
-      this.state.colorCluster.length === this.props.size * this.props.size
-    ) {
-      winText = "you win!";
-    }
+    let tileHeight = Math.floor(420 / this.props.size);
+    let tileWidth = Math.floor(420 / this.props.size);
+    
     if (this.state.gridArray) {
       let splitArray = [];
       let gridArrayCopy = JSON.parse(JSON.stringify(this.state.gridArray));
@@ -176,6 +183,8 @@ class Grid extends Component {
             tileData={tile}
             height={tileHeight}
             width={tileWidth}
+            size={this.props.size}
+            colorCluster={this.state.colorCluster}
           />
         ));
         return (

@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Grid from "../components/Grid";
 import ColorButtons from "../components/ColorButtons";
 import Sidedrawer from "../components/Sidedrawer";
-import Settings from "../components/Settings";
-import colorSchemes from "../constants/colorSchemes";
+import colorThemes from "../constants/colorThemes";
 
 class GameContainer extends Component {
   constructor() {
@@ -13,9 +12,21 @@ class GameContainer extends Component {
       crow: false,
       sidedrawerIsOpen: null,
       content: "hi",
+      theme: colorThemes[0],
+      size: 5,
+      darkMode: false,
+      refresh: false,
+      winStats: null,
     };
     this.colorClicked = this.colorClicked.bind(this);
     this.closeSidedrawer = this.closeSidedrawer.bind(this);
+    this.applyNewSettings = this.applyNewSettings.bind(this);
+    this.applyMode = this.applyMode.bind(this);
+    this.showWin = this.showWin.bind(this);
+  }
+
+  showWin() {
+    this.setState({ winStats: { message: "Flooded!" } });
   }
 
   colorClicked(color) {
@@ -26,9 +37,27 @@ class GameContainer extends Component {
     this.setState({ sidedrawerIsOpen: false });
   }
 
+  applyNewSettings(settings) {
+    let newColorTheme = colorThemes.find(
+      (color) => color.name === settings.colorTheme
+    );
+    this.setState({
+      theme: newColorTheme,
+      currentColor: null,
+      size: settings.size,
+      darkMode: settings.darkMode,
+    });
+  }
+
+  applyMode(mode) {
+    this.setState({
+      darkMode: mode,
+    });
+  }
+
   render() {
     let buttonSection;
-    buttonSection = colorSchemes["standard"].map((color) => {
+    buttonSection = this.state.theme.colors.map((color) => {
       return (
         <ColorButtons
           color={color}
@@ -37,12 +66,17 @@ class GameContainer extends Component {
         />
       );
     });
+    let navBarColor = this.state.darkMode
+      ? this.state.theme.colors[this.state.theme.colors.length - 1]
+      : this.state.theme.colors[0];
+    let stats = this.state.winStats ? <div>{this.state.winStats.message}</div> : null;
     return (
-      <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-          <a class="navbar-brand" href="#">
-            Flood It!
-          </a>
+      <div className={`dark-mode--${this.state.darkMode}`}>
+        <nav
+          className="navbar navbar-expand-lg navbar-light mb-5"
+          style={{ backgroundColor: navBarColor }}
+        >
+          <h1>Flood It!</h1>
           <button
             class="navbar-toggler"
             type="button"
@@ -61,8 +95,20 @@ class GameContainer extends Component {
             <ul class="navbar-nav">
               <li class="nav-item active">
                 <i
-                  className="fas fa-crow font-25 rainbow"
+                  className={`fas fa-${
+                    this.state.crow ? "square" : "crow"
+                  } font-25 rainbow`}
                   onClick={() => this.setState({ crow: !this.state.crow })}
+                ></i>
+              </li>
+              <li class="nav-item active ml-3">
+                <i
+                  className="fas fa-redo font-25"
+                  onClick={() =>
+                    this.setState({ refresh: !this.state.refresh }, () =>
+                      this.setState({ refresh: !this.state.refresh })
+                    )
+                  }
                 ></i>
               </li>
               <li class="nav-item active ml-3">
@@ -78,21 +124,30 @@ class GameContainer extends Component {
             </ul>
           </div>
         </nav>
-        <div className="pt-5 pb-3">
-          <Grid
-            size={5}
-            crow={this.state.crow}
-            colors={["#EAC435", "#345995", "#E40066", "#03CEA4", "#FB4D3D"]}
-            currentColor={this.state.currentColor}
-          />
-          <div className="d-flex justify-content-center mt-5">
-            {buttonSection}
+        <div className="pt-3 pb-3 d-flex justify-content-around">
+          <div>
+            <Grid
+              size={this.state.size}
+              crow={this.state.crow}
+              colors={this.state.theme.colors}
+              currentColor={this.state.currentColor}
+              refresh={this.state.refresh}
+              showWin={this.showWin}
+            />
+            <div className="d-flex justify-content-center mt-5">
+              {buttonSection}
+            </div>
           </div>
+        {stats}
         </div>
         <Sidedrawer
           isOpen={this.state.sidedrawerIsOpen}
-          content={<Settings />}
           closeSidedrawer={this.closeSidedrawer}
+          colorTheme={this.state.theme.name}
+          applyNewSettings={this.applyNewSettings}
+          size={this.state.size}
+          darkMode={this.state.darkMode}
+          applyMode={this.applyMode}
         />
       </div>
     );

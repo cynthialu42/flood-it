@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Settings from "./Settings";
 class Sidedrawer extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +26,17 @@ class Sidedrawer extends Component {
     }
     return (
       <div>
-        <div className={`sidedrawer sidedrawer--${sidedrawerStatus}`}>
-          {this.props.content}
+        <div
+          className={`sidedrawer sidedrawer--${sidedrawerStatus} sidedrawer-dark-mode--${this.props.darkMode} pt-4 pb-4 pl-4 pr-4`}
+        >
+          <Settings
+            colorTheme={this.props.colorTheme}
+            applyNewSettings={this.props.applyNewSettings}
+            closeSidedrawer={this.props.closeSidedrawer}
+            size={this.props.size}
+            darkMode={this.props.darkMode}
+            applyMode={this.props.applyMode}
+          />
         </div>
         {showOverlay}
       </div>
