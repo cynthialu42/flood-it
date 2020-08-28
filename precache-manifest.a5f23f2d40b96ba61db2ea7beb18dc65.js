@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a5b2e5148bdef3711efe430715365074",
+    "revision": "186c5dbbfd4abd67b92fcecd323022d0",
     "url": "/flood-it/index.html"
   },
   {
-    "revision": "30d2cdaa93f508a4228b",
+    "revision": "94b94275882b0f5ab755",
     "url": "/flood-it/static/css/main.d782961a.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/flood-it/static/js/2.56b2f821.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "30d2cdaa93f508a4228b",
-    "url": "/flood-it/static/js/main.a201596b.chunk.js"
+    "revision": "94b94275882b0f5ab755",
+    "url": "/flood-it/static/js/main.25eb59b8.chunk.js"
   },
   {
     "revision": "815fd4bc6a88a4fe430a",
