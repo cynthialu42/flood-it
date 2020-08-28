@@ -6,9 +6,38 @@ body {
   font-size: 25px;
 }
 
-.fas:hover {
+.font-1_5 {
+    font-size: 1.5rem;
+}
+
+.font-1_25 {
+  font-size: 1.25rem;
+}
+
+/* .fas:hover {
   cursor: pointer;
   transform: scale(1.1);
+} */
+
+.width-420 {
+  width: 420px;
+}
+.width-70 {
+  width: 70px;
+}
+.dark-mode-checkbox {
+  margin-left: 24px;
+}
+
+#darkModeCheckbox {
+  margin-left: 0px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color-buttons:hover {
+    transform: scale(1.1);
 }
 
 .dark-mode--true,

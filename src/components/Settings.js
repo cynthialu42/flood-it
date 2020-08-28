@@ -7,11 +7,9 @@ class Settings extends Component {
     this.state = {
       selectedColorTheme: this.props.colorTheme,
       selectedGridSize: this.props.size,
-      selectedMode: this.props.darkMode,
     };
     this.applySettingsChanges = this.applySettingsChanges.bind(this);
     this.updateGridSize = this.updateGridSize.bind(this);
-    this.updateMode = this.updateMode.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -19,7 +17,6 @@ class Settings extends Component {
     let settings = {
       colorTheme: this.state.selectedColorTheme,
       size: this.state.selectedGridSize,
-      darkMode: this.state.selectedMode
     };
     this.props.applyNewSettings(settings);
     this.props.closeSidedrawer();
@@ -27,15 +24,7 @@ class Settings extends Component {
 
   updateGridSize(e) {
     console.log(e.target.value);
-    this.setState({ selectedGridSize: e.target.value });
-  }
-
-  updateMode(e) {
-    console.log(e.target);
-    //   console.log(e.target.value)
-    this.setState({ selectedMode: !this.state.selectedMode }, () => {
-        this.props.applyMode(this.state.selectedMode)
-    });
+    this.setState({ selectedGridSize: Math.floor(e.target.value) });
   }
 
   handleChange(e) {
@@ -63,15 +52,34 @@ class Settings extends Component {
     });
     return (
       <div>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mb-3">
           <h3>Manage Settings</h3>
-          <button onClick={this.applySettingsChanges}>Apply</button>
+          <div>
+            <button
+              className={`btn btn-${
+                this.props.darkMode ? "dark" : "light"
+              } mr-2`}
+              onClick={this.props.closeSidedrawer}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={this.applySettingsChanges}
+            >
+              Apply
+            </button>
+          </div>
         </div>
+        <div className="mb-3">*Current game will be lost when applying new settings</div>
         <h5>Color Themes</h5>
-        <div className="d-flex flex-column align-items-start">{themes}</div>
+        <div className="d-flex flex-column align-items-start mb-3">
+          {themes}
+        </div>
         <h5>{`Grid Size ${this.state.selectedGridSize} x ${this.state.selectedGridSize}`}</h5>
-        <div>
+        <div className="mb-3">
           <input
+            className="width-70"
             type="number"
             onKeyPress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
             name="tentacles"
@@ -81,21 +89,6 @@ class Settings extends Component {
             value={this.state.selectedGridSize}
             onChange={this.updateGridSize}
           />
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="exampleCheck1"
-            value="dark"
-            // handleChange={this.handleCheckbox}
-            // onChange={this.updateMode}
-            onClick={this.updateMode}
-            checked={this.state.selectedMode}
-          />
-          <label class="form-check-label" for="exampleCheck1">
-            Dark Mode
-          </label>
         </div>
       </div>
     );

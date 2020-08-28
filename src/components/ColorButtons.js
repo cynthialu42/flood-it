@@ -5,7 +5,7 @@ class ColorButtons extends Component {
     if (this.props.crow) {
       return (
         <div
-          className="color-buttons"
+          className="color-buttons cursor-pointer"
           style={{ height: 50, width: 50 }}
           onClick={() => this.props.sendColor(this.props.color)}
         >
@@ -21,7 +21,7 @@ class ColorButtons extends Component {
     } else {
       return (
         <div
-          className="color-buttons"
+          className="color-buttons cursor-pointer"
           style={{ backgroundColor: this.props.color, height: 50, width: 50 }}
           onClick={() => this.props.sendColor(this.props.color)}
         />
