@@ -2,6 +2,19 @@ body {
   font-family: "Nanum Gothic", sans-serif;
 }
 
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-body {
+  flex-grow: 1;
+}
+
+.footer {
+  flex-shrink: 0;
+}
 .font-25 {
   font-size: 25px;
 }

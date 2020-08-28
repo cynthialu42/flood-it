@@ -185,14 +185,17 @@ class GameContainer extends Component {
             <strong>Best Game:</strong>
           </div>
           {historicStats}
-          <button className="btn btn-secondary mt-3" onClick={this.startNewGame}>
+          <button
+            className="btn btn-secondary mt-3"
+            onClick={this.startNewGame}
+          >
             New Game?
           </button>
         </div>
       </div>
     ) : null;
     return (
-      <div className={`dark-mode--${this.state.darkMode}`}>
+      <div className={`wrapper dark-mode--${this.state.darkMode}`}>
         <nav
           className="navbar navbar-expand-lg navbar-light mb-3"
           style={{ backgroundColor: navBarColor }}
@@ -274,7 +277,7 @@ class GameContainer extends Component {
             </ul>
           </div>
         </nav>
-        <div className="pt-2 pb-3 d-flex justify-content-around">
+        <div className="page-body pt-2 pb-3 d-flex justify-content-around">
           <div>
             <div className="d-flex justify-content-between font-1_5 width-420">
               <div></div>
@@ -306,6 +309,9 @@ class GameContainer extends Component {
           </div>
           {stats}
         </div>
+        <footer className="footer text-align-center">
+          &copy; Cynthia Lu {new Date().getFullYear()}
+        </footer>
         <Sidedrawer
           isOpen={this.state.sidedrawerIsOpen}
           closeSidedrawer={this.closeSidedrawer}
@@ -392,6 +398,9 @@ class GameContainer extends Component {
               </div>
               <div className="modal-body">
                 <ul>
+                  <li>
+                    This is a copycat of the game of the same name 'Flood It!'
+                  </li>
                   <li>
                     The goal is to 'flood' the board with 1 color, starting from
                     the top left corner
