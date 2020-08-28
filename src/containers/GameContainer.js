@@ -142,28 +142,32 @@ class GameContainer extends Component {
       localStorage.getItem("floodItSettings")
     );
     let storageBestStatsArr = [];
-    for (let key in storageBestStatsObj.best) {
-      storageBestStatsArr.push({
-        size: key,
-        value: storageBestStatsObj.best[key],
+    let historicStats = <div/>;
+    if (storageBestStatsObj && storageBestStatsObj.best) {
+      for (let key in storageBestStatsObj.best) {
+        storageBestStatsArr.push({
+          size: key,
+          value: storageBestStatsObj.best[key],
+        });
+      }
+      historicStats = storageBestStatsArr.map((stat) => {
+        let boldFont = false;
+        if (parseInt(stat.size) === this.state.size) {
+          boldFont = true;
+        }
+        return (
+          <div
+            className={`mb-2 font-20 d-flex justify-content-center bold--${boldFont}`}
+          >
+            {stat.size}x{stat.size} Grid:{" "}
+            <div className={`win-stat-number ml-3 bold--${boldFont}`}>
+              {stat.value}
+            </div>
+          </div>
+        );
       });
     }
-    let historicStats = storageBestStatsArr.map((stat) => {
-      let boldFont = false;
-      if (parseInt(stat.size) === this.state.size) {
-        boldFont = true;
-      }
-      return (
-        <div
-          className={`mb-2 font-20 d-flex justify-content-center bold--${boldFont}`}
-        >
-          {stat.size}x{stat.size} Grid:{" "}
-          <div className={`win-stat-number ml-3 bold--${boldFont}`}>
-            {stat.value}
-          </div>
-        </div>
-      );
-    });
+    
     let navBarColor = this.state.darkMode
       ? this.state.theme.colors[this.state.theme.colors.length - 1]
       : this.state.theme.colors[0];
