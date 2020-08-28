@@ -13,6 +13,19 @@ class Settings extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    let newSize;
+    let newTheme;
+    if (prevProps.size !== this.props.size) {
+      newSize = this.props.size;
+      this.setState({ selectedGridSize: newSize});
+    }
+    if (prevProps.colorTheme !== this.props.colorTheme) {
+      newTheme = this.props.colorTheme;
+      this.setState({ selectedColorTheme: newTheme });
+    }
+  }
+
   applySettingsChanges() {
     let settings = {
       colorTheme: this.state.selectedColorTheme,
@@ -71,7 +84,9 @@ class Settings extends Component {
             </button>
           </div>
         </div>
-        <div className="mb-3">*Current game will be lost when applying new settings</div>
+        <div className="mb-3">
+          *Current game will be lost when applying new settings
+        </div>
         <h5>Color Themes</h5>
         <div className="d-flex flex-column align-items-start mb-3">
           {themes}
